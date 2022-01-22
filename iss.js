@@ -7,7 +7,7 @@
  *   - The IP address as a string (null if error). Example: "162.245.144.188"
  */
 
-const request = require("request");
+const request = require('request');
 
 const fetchMyIP = function(callback) {
   // use request to fetch IP address from JSON API
@@ -81,6 +81,14 @@ const nextISSTimesForMyLocation = function(callback) {
       });
     });
   });
-}
+};
 
-module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes, nextISSTimesForMyLocation };
+const printPassTimes = function(passTimes) {
+  passTimes.forEach(function(element) {
+    const datetime = new Date(0);
+    datetime.setUTCSeconds(element.risetime);
+    console.log(`Next pass at ${datetime} for ${element.duration} seconds!`);
+  });
+};
+
+module.exports = { nextISSTimesForMyLocation, printPassTimes };
